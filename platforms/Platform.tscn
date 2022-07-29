@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://platforms/Platform.gd" type="Script" id=1]
+[ext_resource path="res://TileSet.tres" type="TileSet" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 24, 8 )
+
+[node name="Platform" type="Node2D" groups=["platforms"]]
+script = ExtResource( 1 )
+
+[node name="PlatformBody" type="KinematicBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+motion/sync_to_physics = true
+
+[node name="TileMap" type="TileMap" parent="PlatformBody"]
+light_mask = 2
+z_index = -1
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 0, 2, 196608, 1, 2, 196609, 2, 2, 196610 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformBody"]
+position = Vector2( 24, 8 )
+shape = SubResource( 1 )
+one_way_collision = true

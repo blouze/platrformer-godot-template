@@ -1,0 +1,201 @@
+[gd_scene load_steps=34 format=2]
+
+[ext_resource path="res://Flash.gdshader" type="Shader" id=1]
+[ext_resource path="res://character/Character.gd" type="Script" id=2]
+[ext_resource path="res://assets/img/monochrome_tilemap_transparent_packed.png" type="Texture" id=3]
+[ext_resource path="res://modules/state/Idle.gd" type="Script" id=4]
+[ext_resource path="res://modules/state/StateManager.tscn" type="PackedScene" id=5]
+[ext_resource path="res://modules/state/Jump.gd" type="Script" id=6]
+[ext_resource path="res://modules/state/Fall.gd" type="Script" id=7]
+[ext_resource path="res://modules/state/Hurt.gd" type="Script" id=8]
+[ext_resource path="res://modules/state/Walk.gd" type="Script" id=9]
+
+[sub_resource type="ShaderMaterial" id=26]
+shader = ExtResource( 1 )
+shader_param/flash_color = Color( 0, 0, 0, 1 )
+shader_param/intensity = 0.0
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 240, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 224, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 208, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 192, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 192, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 208, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 224, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 240, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 192, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 208, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 224, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 240, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 224, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 208, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 240, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 192, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 208, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 224, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 240, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ SubResource( 10 ), SubResource( 9 ), SubResource( 8 ), SubResource( 7 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "Hurt",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
+"loop": true,
+"name": "Fall",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=27]
+resource_name = "Hurt"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:material:shader_param/intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=32]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:material:shader_param/intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4, 5 )
+
+[node name="Character" type="KinematicBody2D" groups=["player"]]
+collision_mask = 2
+script = ExtResource( 2 )
+
+[node name="StateManager" parent="." instance=ExtResource( 5 )]
+
+[node name="Idle" type="Node" parent="StateManager"]
+script = ExtResource( 4 )
+anim_name = "Idle"
+
+[node name="Walk" type="Node" parent="StateManager"]
+script = ExtResource( 9 )
+anim_name = "Walk"
+
+[node name="Jump" type="Node" parent="StateManager"]
+script = ExtResource( 6 )
+anim_name = "Jump"
+jump = 23
+
+[node name="Fall" type="Node" parent="StateManager"]
+script = ExtResource( 7 )
+anim_name = "Fall"
+
+[node name="Hurt" type="Node" parent="StateManager"]
+script = ExtResource( 8 )
+anim_name = "Hurt"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+light_mask = 2
+material = SubResource( 26 )
+z_index = -1
+frames = SubResource( 6 )
+animation = "Idle"
+frame = 2
+speed_scale = 2.0
+playing = true
+offset = Vector2( 0, -8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Hurt = SubResource( 27 )
+anims/RESET = SubResource( 32 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -5 )
+shape = SubResource( 1 )

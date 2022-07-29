@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/img/monochrome_tilemap_packed.png" type="Texture" id=1]
+[ext_resource path="res://modules/custom_light/CustomLight.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Door.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 8 )
+
+[node name="Door" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 3 )
+
+[node name="CustomLight" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( 0, -6 )
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+light_mask = 2
+position = Vector2( 0, -8 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 256, 32, 16, 16 )
+
+[node name="Sprite2" type="Sprite" parent="."]
+light_mask = 2
+position = Vector2( 0, -8 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 288, 32, 16, 16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -8 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -8 )
+shape = SubResource( 1 )
+
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
